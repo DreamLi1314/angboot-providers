@@ -12,7 +12,7 @@ dubbo:
 druid:
    username: jackli
    password: dreamli0812
-   url: jdbc:h2:/Users/dreamli/Workspace/MyRepository/angboot/dev-0.2.0/angboot/providers/authority/out/production/resources/angbootdb/AngBoot_db
+   url: jdbc:h2:./build/resources/main/angbootdb/AngBoot_db
    driver-class-name: org.h2.Driver
    type: com.alibaba.druid.pool.DruidDataSource
    initialSize: 5
