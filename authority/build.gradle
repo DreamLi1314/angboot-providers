@@ -1,3 +1,17 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+buildscript {
+   ext {
+      springBootVersion = '2.1.6.RELEASE'
+      lombokVersion = '1.18.8'
+      dubboVersion = '2.7.4.1'
+      dubboCuratorVersion = '2.13.0'
+      mybatisVersion = '2.0.1'
+      swaggerVersion = "2.9.2"
+      isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
+   }
+}
+
 plugins {
    id 'org.springframework.boot' version '2.1.6.RELEASE'
    id 'java'
@@ -6,6 +20,8 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'jacoco'
 
+group = 'org.angboot.authority'
+version = '0.2.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -16,6 +32,10 @@ configurations {
 }
 
 repositories {
+   maven{
+      url 'http://maven.aliyun.com/nexus/content/groups/public/'
+   }
+
    mavenLocal()
    mavenCentral()
 }
@@ -59,4 +79,22 @@ jacocoTestReport {
 task cleanAll(type: Delete, dependsOn: [clean]) {
    group 'build'
    delete = ['.gradle']
+}
+
+
+task codeCoverageReport(type: JacocoReport) {
+   // Gather execution data from all subprojects
+   // (change this if you e.g. want to calculate unit test/integration test coverage separately)
+   executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+   reports {
+      xml.enabled true
+      xml.destination file("${buildDir}/reports/jacoco")
+      html.enabled false
+      csv.enabled false
+   }
+}
+
+wrapper {
+   gradleVersion = '5.4.1'
 }
