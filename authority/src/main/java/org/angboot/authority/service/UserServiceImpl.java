@@ -14,6 +14,7 @@
 
 package org.angboot.authority.service;
 
+import org.angboot.authority.UserService;
 import org.angboot.authority.dao.UserDao;
 import org.angboot.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("userService")
+@org.apache.dubbo.config.annotation.Service
 @CacheConfig(cacheNames="angboot-user")
-public class UserService {
-
-   @Autowired
-   @SuppressWarnings("all")
-   public UserService(UserDao userDao) {
-      this.userDao = userDao;
-   }
+public class UserServiceImpl implements UserService {
 
    @Cacheable(key = "#id")
    public User getUserById(Integer id) {
@@ -43,5 +39,6 @@ public class UserService {
       return this.userDao.getUserByName(userName);
    }
 
-   private final UserDao userDao;
+   @Autowired
+   private UserDao userDao;
 }

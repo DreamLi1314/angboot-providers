@@ -14,6 +14,7 @@
 
 package org.angboot.authority.service;
 
+import org.angboot.authority.AuthorizationService;
 import org.angboot.authority.dao.AuthorizationDao;
 import org.angboot.domain.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("authorizationService")
+@org.apache.dubbo.config.annotation.Service
 @CacheConfig(cacheNames="angboot-authorization")
-public class AuthorizationService {
+public class AuthorizationServiceImpl implements AuthorizationService {
 
    @Autowired
    @SuppressWarnings("all")

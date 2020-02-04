@@ -1,6 +1,11 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 buildscript {
+   repositories {
+      jcenter()
+      mavenCentral()
+   }
+
    ext {
       springBootVersion = '2.1.6.RELEASE'
       lombokVersion = '1.18.8'
@@ -22,33 +27,40 @@ apply plugin: 'jacoco'
 
 group = 'org.angboot.authority'
 version = '0.2.0-SNAPSHOT'
+
 sourceCompatibility = '1.8'
 
 configurations {
-   api
    developmentOnly
-   compile.extendsFrom(api)
    compileOnly.extendsFrom(tools, annotationProcessor)
 }
 
 repositories {
-   maven{
+   maven {
+      url 'http://javafamily.club:8081/repository/maven-public/'
+      content {
+         // put internal and custom artifacts here that aren't available in public repositories
+         includeGroup 'org.angboot'
+      }
+   }
+
+   maven {
       url 'http://maven.aliyun.com/nexus/content/groups/public/'
    }
 
-   mavenLocal()
+   jcenter()
    mavenCentral()
 }
 
 dependencies {
-   // modules
-//   api project(':api:models')
-//   api project(':api:interfaces')
-//   api project(':api:constants')
+   // internal api
+//   implementation "org.angboot:models:${project.version}"
+   implementation 'org.angboot:models:0.2.0-20200204.165008-3@jar'
+   implementation 'org.angboot:constants:0.2.0-20200204.121131-1@jar'
+   implementation 'org.angboot:interfaces:0.2.0-20200204.155921-1@jar'
 
    // spring
    implementation 'org.springframework.boot:spring-boot-starter-web'
-   implementation 'org.springframework.boot:spring-boot-starter-security'
    implementation 'org.springframework.boot:spring-boot-starter-cache'
 
    // only development
