@@ -32,6 +32,8 @@ sourceCompatibility = '1.8'
 
 configurations {
    developmentOnly
+   internalApi
+   compile.extendsFrom(internalApi)
    compileOnly.extendsFrom(tools, annotationProcessor)
 }
 
@@ -54,10 +56,9 @@ repositories {
 
 dependencies {
    // internal api
-//   implementation "org.angboot:models:${project.version}"
-   implementation 'org.angboot:models:0.2.0-20200204.165008-3@jar'
-   implementation 'org.angboot:constants:0.2.0-20200204.121131-1@jar'
-   implementation 'org.angboot:interfaces:0.2.0-20200204.155921-1@jar'
+   internalApi "org.angboot:models:${project.version}"
+   internalApi "org.angboot:constants:${project.version}"
+   internalApi "org.angboot:interfaces:${project.version}"
 
    // spring
    implementation 'org.springframework.boot:spring-boot-starter-web'
