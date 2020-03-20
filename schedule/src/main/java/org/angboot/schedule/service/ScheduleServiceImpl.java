@@ -17,28 +17,35 @@ package org.angboot.schedule.service;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
-@Service
+@Service("scheduleService")
 @org.apache.dubbo.config.annotation.Service
 public class ScheduleServiceImpl implements ScheduleService {
 
    @PostConstruct
    private void init() throws SchedulerException {
       scheduler = StdSchedulerFactory.getDefaultScheduler();
+      LOGGER.info("Schedule Inited.");
    }
 
    @Override
    public void startServer() throws Exception {
       scheduler.start();
+      LOGGER.info("Schedule Started.");
    }
 
    @Override
    public void stopServer() throws Exception {
       scheduler.shutdown(true);
+      LOGGER.info("Schedule will Shutdown.");
    }
 
    private Scheduler scheduler;
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(ScheduleServiceImpl.class);
 }

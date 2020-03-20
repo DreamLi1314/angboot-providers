@@ -82,6 +82,10 @@ dependencies {
 
 	// test
 	testImplementation "org.junit.jupiter:junit-jupiter-api:${jupiterVersion}"
+	testImplementation "org.junit.jupiter:junit-jupiter-params:${jupiterVersion}"
+	testImplementation "org.junit.jupiter:junit-jupiter-engine:${jupiterVersion}"
+	testImplementation "org.springframework:spring-test:${springVersion}"
+
 }
 
 
@@ -125,10 +129,31 @@ publishing {
 	}
 }
 
+test {
+	useJUnitPlatform()
+}
+
 wrapper {
 	gradleVersion = '6.0.1'
 }
 
+task runSchedule() {
+	group 'application'
+	description 'Run Schedule Server'
+
+	doLast {
+		javaexec {
+			classpath sourceSets.main.runtimeClasspath
+			main = 'org.angboot.schedule.ScheduleApplication'
+			jvmArgs = [
+				'-Djava.rmi.server.hostname=127.0.0.1',
+				'-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5019'
+			]
+
+			args = ['--stop-port', '8085', '--stop-key', 'stop']
+		}
+	}
+}
 
 
 
