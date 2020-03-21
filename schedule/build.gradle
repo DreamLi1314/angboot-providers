@@ -48,10 +48,10 @@ repositories {
 dependencies {
 	// internal api
 	if(apiAvailable) {
-		internalApi project(':api:models')
-		internalApi project(':api:common')
-		internalApi project(':api:interfaces')
-		internalApi project(':api:constants')
+		internalApi files("../../api/models/build/libs/models-${apiVersion}.jar")
+		internalApi files("../../api/common/build/libs/common-${apiVersion}.jar")
+		internalApi files("../../api/interfaces/build/libs/interfaces-${apiVersion}.jar")
+		internalApi files("../../api/constants/build/libs/constants-${apiVersion}.jar")
 	}
 	else {
 		internalApi "org.angboot:models:${apiVersion}"
@@ -87,7 +87,6 @@ dependencies {
 	testImplementation "org.springframework:spring-test:${springVersion}"
 
 }
-
 
 task sourceJar(type: Jar) {
 	from sourceSets.main.allJava
