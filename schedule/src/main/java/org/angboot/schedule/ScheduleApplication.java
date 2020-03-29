@@ -14,11 +14,8 @@
 package org.angboot.schedule;
 
 import org.angboot.schedule.config.ApplicationConfig;
-import org.angboot.schedule.service.ScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 public class ScheduleApplication {
    public static void main(String[] args) throws Exception {
